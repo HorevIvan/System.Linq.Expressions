@@ -17,24 +17,24 @@ namespace System.Linq.Expressions
 
         #region Nodes
 
-        private IEnumerable<ExpressionTree> _Nodes;
+        private ExpressionTree[] _Nodes;
 
-        public IEnumerable<ExpressionTree> Nodes
+        public ExpressionTree[] Nodes
         {
-            get { return (_Nodes ?? (_Nodes = GetNodes())); }
+            get { return _Nodes ?? (_Nodes = GetNodes()); }
         }
 
-        private IEnumerable<ExpressionTree> GetNodes()
+        private ExpressionTree[] GetNodes()
         {
-            foreach(var expression in GetSubExpressions(Root))
-            {
-                yield return (new ExpressionTree(expression));
-            }
+            return
+                GetSubExpressions(Root)
+                    .Select(subExpression => (new ExpressionTree(subExpression)))
+                        .ToArray();
         }
 
         #endregion
 
-        public static IEnumerable<Expression> GetSubExpressions(Expression root)
+        public static Expression[] GetSubExpressions(Expression root)
         {
             switch(root.NodeType)
             {
@@ -83,6 +83,10 @@ namespace System.Linq.Expressions
                     {
                         return GetNodesFromInvocationExpression(root.To<InvocationExpression>());
                     }
+                case ExpressionType.Lambda:
+                    {
+                        return GetNodesFromLambdaExpression(root.To<LambdaExpression>());
+                    }
                 default:
                     {
                         throw (new NotSupportedException("Node type {0} is not supported".Set(root.NodeType)));
@@ -90,26 +94,29 @@ namespace System.Linq.Expressions
             }
         }
 
-        public static IEnumerable<Expression> GetNodesFromUnaryExpression(UnaryExpression expression)
+        private static Expression[] GetNodesFromLambdaExpression(LambdaExpression lambdaExpression)
         {
-            yield return expression.Operand;
+            return (new Expression[] { lambdaExpression.Body });
         }
 
-        private static IEnumerable<Expression> GetNodesFromBinaryExpression(BinaryExpression expression)
+        public static Expression[] GetNodesFromUnaryExpression(UnaryExpression expression)
         {
-            yield return expression.Left;
-
-            yield return expression.Right;
+            return (new Expression[] { expression.Operand });
         }
 
-        public static IEnumerable<Expression> GetNodesFromTypeBinaryExpression(TypeBinaryExpression expression)
+        private static Expression[] GetNodesFromBinaryExpression(BinaryExpression expression)
         {
-            yield return expression.Expression;
+            return (new Expression[] {expression.Left, expression.Right});
         }
 
-        public static IEnumerable<Expression> GetNodesFromInvocationExpression(InvocationExpression expression)
+        public static Expression[] GetNodesFromTypeBinaryExpression(TypeBinaryExpression expression)
         {
-            yield return expression.Expression;
+            return (new Expression[] { expression.Expression });
+        }
+
+        public static Expression[] GetNodesFromInvocationExpression(InvocationExpression expression)
+        {
+            return (new Expression[] { expression.Expression });
         }
     }
 }
