@@ -5,6 +5,8 @@ VisualStudioVersion = 12.0.30501.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Linq.Expressions", "System.Linq.Expressions\System.Linq.Expressions.csproj", "{9F11337C-356E-46EB-B024-CF2902548729}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Linq.Expressions.Samples", "System.Linq.Expressions.Samples\System.Linq.Expressions.Samples.csproj", "{A1742C38-207D-4D13-879F-59482A14FAAF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{9F11337C-356E-46EB-B024-CF2902548729}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9F11337C-356E-46EB-B024-CF2902548729}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9F11337C-356E-46EB-B024-CF2902548729}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A1742C38-207D-4D13-879F-59482A14FAAF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1742C38-207D-4D13-879F-59482A14FAAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1742C38-207D-4D13-879F-59482A14FAAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1742C38-207D-4D13-879F-59482A14FAAF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
