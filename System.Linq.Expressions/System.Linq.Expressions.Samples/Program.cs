@@ -26,6 +26,8 @@ namespace System.Linq.Expressions.Samples
 
             Print(et);
 
+            Console.WriteLine(et.GetAllNodes().Count());
+
             Console.ReadLine();
         }
 

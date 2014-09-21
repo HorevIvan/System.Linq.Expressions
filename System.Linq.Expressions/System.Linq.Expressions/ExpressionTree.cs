@@ -34,6 +34,18 @@ namespace System.Linq.Expressions
 
         #endregion
 
+        public IEnumerable<ExpressionTree> GetAllNodes()
+        {
+            var nodes = Nodes.AsEnumerable();
+
+            foreach(var node in Nodes)
+            {
+                nodes = nodes.Concat(node.GetAllNodes());
+            }
+
+            return nodes;
+        }
+
         public static Expression[] GetSubExpressions(Expression root)
         {
             switch(root.NodeType)
