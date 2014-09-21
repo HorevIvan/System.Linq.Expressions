@@ -87,6 +87,18 @@ namespace System.Linq.Expressions
                     {
                         return GetNodesFromLambdaExpression(root.To<LambdaExpression>());
                     }
+                case ExpressionType.Conditional:
+                    {
+                        return GetNodesFromConditionalExpression(root.To<ConditionalExpression>());
+                    }
+                case ExpressionType.MemberAccess:
+                    {
+                        return GetNodesFromMemberExpression(root.To<MemberExpression>());
+                    }
+                case ExpressionType.Constant:
+                    {
+                        return GetNodesFromConstantExpression(root.To<ConstantExpression>());
+                    }
                 default:
                     {
                         throw (new NotSupportedException("Node type {0} is not supported".Set(root.NodeType)));
@@ -117,6 +129,21 @@ namespace System.Linq.Expressions
         public static Expression[] GetNodesFromInvocationExpression(InvocationExpression expression)
         {
             return (new Expression[] { expression.Expression });
+        }
+
+        public static Expression[] GetNodesFromConditionalExpression(ConditionalExpression expression)
+        {
+            return (new Expression[] { expression.Test, expression.IfFalse, expression.IfTrue });
+        }
+
+        public static Expression[] GetNodesFromMemberExpression(MemberExpression expression)
+        {
+            return (new Expression[] { expression.Expression });
+        }
+
+        public static Expression[] GetNodesFromConstantExpression(ConstantExpression expression)
+        {
+            return (new Expression[] { });
         }
     }
 }

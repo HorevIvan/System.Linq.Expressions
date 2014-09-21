@@ -24,9 +24,24 @@ namespace System.Linq.Expressions.Samples
 
             var et = new ExpressionTree(ef);
 
-            foreach(var n in et.Nodes)
+            Print(et);
+
+            Console.ReadLine();
+        }
+
+        private static void Print(ExpressionTree et, Int32 level = 0)
+        {
+            var l = 70;
+
+            var body = (new String('-', level)) + " " + et.Root.ToString();
+
+            if(body.Length > l) body = body.Substring(0, l);
+
+            Console.WriteLine(body);
+
+            foreach(var node in et.Nodes)
             {
-                Console.WriteLine(n.Root.ToString());
+                Print(node, ++level);
             }
         }
     }
