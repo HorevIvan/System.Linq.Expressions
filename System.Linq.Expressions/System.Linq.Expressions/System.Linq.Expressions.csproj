@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ExpressionOptimizer.cs" />
     <Compile Include="ExpressionTree.cs" />
     <Compile Include="ExtendedMethods.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
