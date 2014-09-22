@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 using FDD = System.Func<System.Double, System.Double>;
 using EFDD = System.Linq.Expressions.Expression<System.Func<System.Double, System.Double, System.Double>>;
+using System.Linq.Expressions.Optimization;
 
 namespace System.Linq.Expressions.Samples
 {
@@ -28,16 +29,32 @@ namespace System.Linq.Expressions.Samples
 
             Console.WriteLine(et.GetAllNodes().Count());
 
+            Console.WriteLine(new String('-', 20) + "GetDublicateNodes");
+            {
+                var d = JoinDublicateOptimazer.GetDublicateNodes(et).ToArray();
+
+                foreach(var i in d)
+                {
+                    Console.WriteLine(i);
+                }
+            }
+
+            Console.WriteLine(new String('-', 20) + "GetNodesForReduce");
+            {
+                var d = JoinDublicateOptimazer.GetNodesForReduce(et).ToArray();
+
+                foreach(var i in d)
+                {
+                    Console.WriteLine(i);
+                }
+            }
+
             Console.ReadLine();
         }
 
         private static void Print(ExpressionTree et, Int32 level = 0)
         {
-            var l = 70;
-
             var body = (new String('-', level)) + " " + et.Root.ToString();
-
-            if(body.Length > l) body = body.Substring(0, l);
 
             Console.WriteLine(body);
 

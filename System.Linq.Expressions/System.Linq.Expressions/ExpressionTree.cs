@@ -27,7 +27,7 @@ namespace System.Linq.Expressions
         private ExpressionTree[] GetNodes()
         {
             return
-                GetSubExpressions(Root)
+                GetSubNodes(Root)
                     .Select(subExpression => (new ExpressionTree(subExpression)))
                         .ToArray();
         }
@@ -46,7 +46,9 @@ namespace System.Linq.Expressions
             return nodes;
         }
 
-        public static Expression[] GetSubExpressions(Expression root)
+        #region GetSubNodes
+
+        public static Expression[] GetSubNodes(Expression root)
         {
             switch(root.NodeType)
             {
@@ -156,6 +158,13 @@ namespace System.Linq.Expressions
         public static Expression[] GetNodesFromConstantExpression(ConstantExpression expression)
         {
             return (new Expression[] { });
+        }
+
+        #endregion
+
+        public override String ToString()
+        {
+            return Root.ToString();
         }
     }
 }
