@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Linq.Expressions", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Linq.Expressions.Samples", "System.Linq.Expressions.Samples\System.Linq.Expressions.Samples.csproj", "{A1742C38-207D-4D13-879F-59482A14FAAF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Linq.Expressions.UnitTests", "System.Linq.Expressions.UnitTests\System.Linq.Expressions.UnitTests.csproj", "{FBC9D30E-D90D-4C0D-A13C-CC18D908BEFD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{A1742C38-207D-4D13-879F-59482A14FAAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A1742C38-207D-4D13-879F-59482A14FAAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A1742C38-207D-4D13-879F-59482A14FAAF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FBC9D30E-D90D-4C0D-A13C-CC18D908BEFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FBC9D30E-D90D-4C0D-A13C-CC18D908BEFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FBC9D30E-D90D-4C0D-A13C-CC18D908BEFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FBC9D30E-D90D-4C0D-A13C-CC18D908BEFD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
