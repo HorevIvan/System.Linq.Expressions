@@ -41,7 +41,7 @@
   <ItemGroup>
     <Compile Include="ExpressionOptimizer.cs" />
     <Compile Include="ExpressionTree.cs" />
-    <Compile Include="ExtendedMethods.cs" />
+    <Compile Include="ExtensionMethods.cs" />
     <Compile Include="OptimizeExtensionMethods.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

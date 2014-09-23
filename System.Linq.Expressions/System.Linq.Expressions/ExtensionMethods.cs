@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-public static class ExtendedMethods
+public static class ExtensionMethods
 {
     public static T To<T>(this Object value)
     {
