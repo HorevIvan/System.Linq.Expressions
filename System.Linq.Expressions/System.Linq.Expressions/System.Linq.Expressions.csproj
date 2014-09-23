@@ -39,10 +39,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Optimization\ExpressionOptimizer.cs" />
+    <Compile Include="ExpressionOptimizer.cs" />
     <Compile Include="ExpressionTree.cs" />
     <Compile Include="ExtendedMethods.cs" />
-    <Compile Include="Optimization\JoinDublicateOptimazer.cs" />
+    <Compile Include="OptimizeExtensionMethods.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

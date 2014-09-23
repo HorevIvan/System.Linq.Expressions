@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 using FDD = System.Func<System.Double, System.Double>;
 using EFDD = System.Linq.Expressions.Expression<System.Func<System.Double, System.Double, System.Double>>;
-using System.Linq.Expressions.Optimization;
 
 namespace System.Linq.Expressions.Samples
 {
@@ -31,7 +30,7 @@ namespace System.Linq.Expressions.Samples
 
             Console.WriteLine(new String('-', 20) + "GetDublicateNodes");
             {
-                var d = JoinDublicateOptimazer.GetDublicateNodes(ef).ToArray();
+                var d = ExpressionOptimizer.GetDublicateNodes(ef).ToArray();
 
                 foreach(var i in d)
                 {
@@ -41,7 +40,7 @@ namespace System.Linq.Expressions.Samples
 
             Console.WriteLine(new String('-', 20) + "GetNodesForReduce");
             {
-                var d = ExpressionOptimizer.Constructor<JoinDublicateOptimazer>(ef);
+                var d = new ExpressionOptimizer(ef);
 
                 d.Optimize();
 

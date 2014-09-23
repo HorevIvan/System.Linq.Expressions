@@ -4,16 +4,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace System.Linq.Expressions.Optimization
+namespace System.Linq.Expressions
 {
-    public class JoinDublicateOptimazer : ExpressionOptimizer
+    public class ExpressionOptimizer
     {
+        public Expression Source { private set; get; }
+
         public IEnumerable<Expression> NodesForReduce { private set; get; }
 
-        public override void Optimize()
+        public Delegate Result { private set; get; }
+
+        public ExpressionOptimizer(Expression source)
         {
-            NodesForReduce = 
-                GetNodesForReduce(Expression)
+            Source = source;
+        }
+
+        public void Optimize()
+        {
+            NodesForReduce =
+                GetNodesForReduce(Source)
                     .Where(expression => expression.NodeType == ExpressionType.Invoke); // selecting only function invokes
         }
 
