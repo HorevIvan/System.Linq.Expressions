@@ -31,7 +31,7 @@ namespace System.Linq.Expressions.Samples
 
             Console.WriteLine(new String('-', 20) + "GetDublicateNodes");
             {
-                var d = JoinDublicateOptimazer.GetDublicateNodes(et).ToArray();
+                var d = JoinDublicateOptimazer.GetDublicateNodes(ef).ToArray();
 
                 foreach(var i in d)
                 {
@@ -41,9 +41,11 @@ namespace System.Linq.Expressions.Samples
 
             Console.WriteLine(new String('-', 20) + "GetNodesForReduce");
             {
-                var d = JoinDublicateOptimazer.GetNodesForReduce(et).ToArray();
+                var d = ExpressionOptimizer.Constructor<JoinDublicateOptimazer>(ef);
 
-                foreach(var i in d)
+                d.Optimize();
+
+                foreach(var i in d.ReduceNodes)
                 {
                     Console.WriteLine(i);
                 }

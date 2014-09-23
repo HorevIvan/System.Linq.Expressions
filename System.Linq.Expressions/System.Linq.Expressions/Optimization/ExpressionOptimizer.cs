@@ -8,20 +8,15 @@ namespace System.Linq.Expressions.Optimization
 {
     public abstract class ExpressionOptimizer
     {
-        public ExpressionTree Tree { private set; get; }
+        public Expression Expression { private set; get; }
 
         public abstract void Optimize();
 
-        //public ExpressionOptimizer(Expression expression)
-        //{
-        //    Tree = (new ExpressionTree(expression));
-        //}
-
-        public static OptimizerType Create<OptimizerType>(ExpressionTree tree)
+        public static OptimizerType Constructor<OptimizerType>(Expression expression)
             //
             where OptimizerType: ExpressionOptimizer, new()
         {
-            return (new OptimizerType { Tree = tree });
+            return (new OptimizerType { Expression = expression });
         }
     }
 }
