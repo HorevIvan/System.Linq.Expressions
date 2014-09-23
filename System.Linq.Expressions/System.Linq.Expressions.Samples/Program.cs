@@ -44,10 +44,12 @@ namespace System.Linq.Expressions.Samples
 
                 d.Optimize();
 
-                foreach(var i in d.NodesForReduce)
+                foreach(var i in d.ForwardExpressions)
                 {
                     Console.WriteLine(i);
                 }
+
+                Console.WriteLine("-------");
             }
 
             Console.ReadLine();

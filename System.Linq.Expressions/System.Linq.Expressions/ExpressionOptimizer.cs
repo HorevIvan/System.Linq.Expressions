@@ -10,7 +10,7 @@ namespace System.Linq.Expressions
     {
         public Expression Source { private set; get; }
 
-        public IEnumerable<Expression> NodesForReduce { private set; get; }
+        public IEnumerable<InvocationExpression> ForwardExpressions { private set; get; }
 
         public Delegate Result { private set; get; }
 
@@ -21,9 +21,10 @@ namespace System.Linq.Expressions
 
         public void Optimize()
         {
-            NodesForReduce =
+            ForwardExpressions =
                 GetNodesForReduce(Source)
-                    .Where(expression => expression.NodeType == ExpressionType.Invoke); // selecting only function invokes
+                    .Where(expression => expression.NodeType == ExpressionType.Invoke)  // selecting only function invokes
+                    .Select(expression => expression.To<InvocationExpression>());       // cast to invocation expressions
         }
 
         public static IEnumerable<Expression> GetDublicateNodes(Expression root)
