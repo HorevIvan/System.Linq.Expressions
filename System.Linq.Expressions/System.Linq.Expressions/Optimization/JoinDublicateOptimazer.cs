@@ -8,11 +8,11 @@ namespace System.Linq.Expressions.Optimization
 {
     public class JoinDublicateOptimazer : ExpressionOptimizer
     {
-        public IEnumerable<Expression> ReduceNodes { private set; get; }
+        public IEnumerable<Expression> NodesForReduce { private set; get; }
 
         public override void Optimize()
         {
-            ReduceNodes = 
+            NodesForReduce = 
                 GetNodesForReduce(Expression)
                     .Where(expression => expression.NodeType == ExpressionType.Invoke);
         }

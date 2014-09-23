@@ -45,7 +45,7 @@ namespace System.Linq.Expressions.Samples
 
                 d.Optimize();
 
-                foreach(var i in d.ReduceNodes)
+                foreach(var i in d.NodesForReduce)
                 {
                     Console.WriteLine(i);
                 }
