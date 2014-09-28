@@ -40,9 +40,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ExpressionOptimizer.cs" />
+    <Compile Include="InvocableReduceOptimizer.cs" />
     <Compile Include="ExpressionTree.cs" />
     <Compile Include="ExtensionMethods.cs" />
-    <Compile Include="OptimizeExtensionMethods.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
