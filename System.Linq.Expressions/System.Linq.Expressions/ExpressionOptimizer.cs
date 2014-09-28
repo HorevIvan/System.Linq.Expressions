@@ -25,6 +25,8 @@ namespace System.Linq.Expressions
                 GetNodesForReduce(Source)
                     .Where(expression => expression.NodeType == ExpressionType.Invoke)  // selecting only function invokes
                     .Select(expression => expression.To<InvocationExpression>());       // cast to invocation expressions
+
+            //TODO
         }
 
         public static IEnumerable<Expression> GetDublicateNodes(Expression root)
