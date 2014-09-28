@@ -32,8 +32,6 @@ namespace System.Linq.Expressions
                         .ToArray();
         }
 
-        #endregion
-
         public IEnumerable<ExpressionTree> GetAllNodes()
         {
             var nodes = Nodes.AsEnumerable();
@@ -45,8 +43,6 @@ namespace System.Linq.Expressions
 
             return nodes;
         }
-
-        #region GetSubNodes
 
         public static Expression[] GetSubNodes(Expression root)
         {
