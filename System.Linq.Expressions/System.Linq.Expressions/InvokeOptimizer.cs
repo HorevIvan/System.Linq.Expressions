@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace System.Linq.Expressions
 {
-    public class InvocableReduceOptimizer : ExpressionOptimizer
+    public class InvokeOptimizer : ExpressionOptimizer
     {
-        public IEnumerable<InvocationExpression> ForwardExpressions { private set; get; }        
+        public IEnumerable<InvocationExpression> ReducibleInvokes { private set; get; }        
 
-        public InvocableReduceOptimizer(Expression expression)
+        public InvokeOptimizer(Expression expression)
             //
             : base(expression)
         {
@@ -18,12 +18,17 @@ namespace System.Linq.Expressions
 
         public override void Optimize()
         {
-            ForwardExpressions =
+            InitReduceInvoces();
+
+            //TODO
+        }
+
+        private void InitReduceInvoces()
+        {
+            ReducibleInvokes =
                 GetNodesForReduce(Expression)
                     .Where(expression => expression.NodeType == ExpressionType.Invoke)  // selecting only function invokes
                     .Select(expression => expression.To<InvocationExpression>());       // cast to invocation expressions
-
-            //TODO
         }
 
         public static IEnumerable<Expression> GetDublicateNodes(Expression root)

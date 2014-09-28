@@ -30,7 +30,7 @@ namespace System.Linq.Expressions.Samples
 
             Console.WriteLine(new String('-', 20) + "GetDublicateNodes");
             {
-                var d = InvocableReduceOptimizer.GetDublicateNodes(ef).ToArray();
+                var d = InvokeOptimizer.GetDublicateNodes(ef).ToArray();
 
                 foreach(var i in d)
                 {
@@ -40,11 +40,11 @@ namespace System.Linq.Expressions.Samples
 
             Console.WriteLine(new String('-', 20) + "GetNodesForReduce");
             {
-                var d = new InvocableReduceOptimizer(ef);
+                var d = new InvokeOptimizer(ef);
 
                 d.Optimize();
 
-                foreach(var i in d.ForwardExpressions)
+                foreach(var i in d.ReducibleInvokes)
                 {
                     Console.WriteLine(i);
                 }
