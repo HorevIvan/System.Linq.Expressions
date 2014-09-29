@@ -23,7 +23,7 @@ namespace v3
 
         private ExpressionNode[] GetNodes()
         {
-            return
+            return 
                 GetSubExpressions(Root)
                     .Select(subExpression => (new ExpressionNode { Root = subExpression }))
                         .ToArray();
@@ -40,6 +40,10 @@ namespace v3
 
             return nodes;
         }
+
+        #endregion
+
+        #region SubExpressions
 
         public static Expression[] GetSubExpressions(Expression root)
         {
