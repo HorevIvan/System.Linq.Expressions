@@ -24,8 +24,8 @@ namespace v3
         private ExpressionNode[] GetNodes()
         {
             return
-                GetSubNodes(Root)
-                    .Select(subNode => (new ExpressionNode { Root = subNode }))
+                GetSubExpressions(Root)
+                    .Select(subExpression => (new ExpressionNode { Root = subExpression }))
                         .ToArray();
         }
 
@@ -41,7 +41,7 @@ namespace v3
             return nodes;
         }
 
-        public static Expression[] GetSubNodes(Expression root)
+        public static Expression[] GetSubExpressions(Expression root)
         {
             switch (root.NodeType)
             {
