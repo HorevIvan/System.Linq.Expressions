@@ -18,7 +18,7 @@ public static class ExtensionMethods
 
     public static Boolean IsNull(this Object value)
     {                                                              
-        return Object.ReferenceEquals(null, value);
+        return ReferenceEquals(null, value);
     }
 
     public static Boolean Is<T>(this Object value)

@@ -18,7 +18,7 @@ namespace v3
 
             Console.WriteLine(ef);
 
-            ExpressionNode n = ExpressionNode.Constructor<LambdaNode>(ef);
+            var n = ExpressionNode.Constructor(ef);
 
             Console.ReadLine();
         }

@@ -12,19 +12,28 @@ namespace v3
     {
         public Expression Root { protected set; get; }
 
-        public abstract Expression[] GetExpressions();
+        public abstract IEnumerable<Expression> GetExpressions();
 
-        public ExpressionNode GetNode(Expression expression)
+        public IEnumerable<ExpressionNode> Nodes
+        {
+            get { return GetExpressions().Select(Constructor); }
+        }
+
+        public static ExpressionNode Constructor(Expression expression)
         {
             switch (expression.NodeType)
             {
+                case ExpressionType.Lambda:
+                    {
+                        return Constructor<LambdaNode>(expression);
+                    }
                 case ExpressionType.Invoke:
                     {
                         return Constructor<InvocationNode>(expression);
                     }
                 default:
-                    { 
-                        throw (new NotSupportedException("Node type {0} is not supported".Set(Root.NodeType)));
+                    {
+                        throw (new NotSupportedException("Node type {0} is not supported".Set(expression.NodeType)));
                     }
             }
         }
@@ -37,29 +46,29 @@ namespace v3
         }
     }
 
-    public abstract class TypedExpressionNode<ExpressionType> : ExpressionNode
+    public abstract class TypedExpressionNode<T> : ExpressionNode
         //
-        where ExpressionType: Expression
+        where T: Expression
     {
-        public virtual ExpressionType Target
+        public T Target
         {
-            get { return Root.To<ExpressionType>(); }
+            get { return Root.To<T>(); }
         }
     }
 
     public class InvocationNode : TypedExpressionNode<InvocationExpression>
     {
-        public override Expression[] GetExpressions()
+        public override IEnumerable<Expression> GetExpressions()
         {
-            return (new[] { Target.Expression });
+            yield return Target.Expression;
         }
     }
 
     public class LambdaNode : TypedExpressionNode<LambdaExpression>
     {
-        public override Expression[] GetExpressions()
+        public override IEnumerable<Expression> GetExpressions()
         {
-            return (new[] { Target.Body });
+            yield return Target.Body;
         }
     }
 }
