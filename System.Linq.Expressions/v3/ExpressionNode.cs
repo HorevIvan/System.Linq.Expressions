@@ -24,7 +24,7 @@ namespace v3
                     }
                 default:
                     { 
-                        throw (new NotSupportedException());
+                        throw (new NotSupportedException("Node type {0} is not supported".Set(Root.NodeType)));
                     }
             }
         }
