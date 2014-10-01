@@ -18,7 +18,7 @@ namespace v3
 
             Console.WriteLine(ef);
 
-            var n = ExpressionNode.Constructor(ef);
+            var n = new ExpressionNode(ef);
 
             Console.ReadLine();
         }

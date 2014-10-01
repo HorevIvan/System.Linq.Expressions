@@ -7,19 +7,18 @@ using System.Threading.Tasks;
 
 namespace v3
 {
-
     public class ExpressionNode
     {
-        public Expression Root { set; get; }
+        public Expression Root { private set; get; }
 
-        public static ExpressionNode Constructor(Expression root)
+        public ExpressionNode(Expression root)
         {
-            return (new ExpressionNode { Root = root });
+            Root = root;
         }
 
         public IEnumerable<ExpressionNode> Nodes
         {
-            get { return Expressions.Select(Constructor); }
+            get { return Expressions.Select(expression => new ExpressionNode(expression)); }
         }
 
         public IEnumerable<Expression> Expressions
