@@ -8,67 +8,42 @@ using System.Threading.Tasks;
 namespace v3
 {
 
-    public abstract class ExpressionNode
+    public class ExpressionNode
     {
-        public Expression Root { protected set; get; }
+        public Expression Root { set; get; }
 
-        public abstract IEnumerable<Expression> GetExpressions();
+        public static ExpressionNode Constructor(Expression root)
+        {
+            return (new ExpressionNode { Root = root });
+        }
 
         public IEnumerable<ExpressionNode> Nodes
         {
-            get { return GetExpressions().Select(Constructor); }
+            get { return Expressions.Select(Constructor); }
         }
 
-        public static ExpressionNode Constructor(Expression root)
+        public IEnumerable<Expression> Expressions
+        {
+            get { return GetExpressions(Root); }
+        }
+
+        public static Expression[] GetExpressions(Expression root)
         {
             switch (root.NodeType)
             {
                 case ExpressionType.Lambda:
                     {
-                        return Constructor<LambdaNode>(root);
+                        return new[] { root.To<LambdaExpression>().Body };
                     }
                 case ExpressionType.Invoke:
                     {
-                        return Constructor<InvocationNode>(root);
+                        return new[] { root.To<InvocationExpression>().Expression };
                     }
                 default:
                     {
                         throw (new NotSupportedException("Node type {0} is not supported".Set(root.NodeType)));
                     }
             }
-        }
-
-        public static NodeType Constructor<NodeType>(Expression root)
-            //
-            where NodeType: ExpressionNode, new()
-        {
-            return (new NodeType { Root = root });
-        }
-    }
-
-    public abstract class TypedExpressionNode<T> : ExpressionNode
-        //
-        where T: Expression
-    {
-        public T Target
-        {
-            get { return Root.To<T>(); }
-        }
-    }
-
-    public class InvocationNode : TypedExpressionNode<InvocationExpression>
-    {
-        public override IEnumerable<Expression> GetExpressions()
-        {
-            yield return Target.Expression;
-        }
-    }
-
-    public class LambdaNode : TypedExpressionNode<LambdaExpression>
-    {
-        public override IEnumerable<Expression> GetExpressions()
-        {
-            yield return Target.Body;
         }
     }
 }
