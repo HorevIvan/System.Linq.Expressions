@@ -19,21 +19,21 @@ namespace v3
             get { return GetExpressions().Select(Constructor); }
         }
 
-        public static ExpressionNode Constructor(Expression expression)
+        public static ExpressionNode Constructor(Expression root)
         {
-            switch (expression.NodeType)
+            switch (root.NodeType)
             {
                 case ExpressionType.Lambda:
                     {
-                        return Constructor<LambdaNode>(expression);
+                        return Constructor<LambdaNode>(root);
                     }
                 case ExpressionType.Invoke:
                     {
-                        return Constructor<InvocationNode>(expression);
+                        return Constructor<InvocationNode>(root);
                     }
                 default:
                     {
-                        throw (new NotSupportedException("Node type {0} is not supported".Set(expression.NodeType)));
+                        throw (new NotSupportedException("Node type {0} is not supported".Set(root.NodeType)));
                     }
             }
         }
