@@ -29,18 +29,16 @@ namespace v3
 
             Console.WriteLine();
             Console.WriteLine("DublicateNodes");
-            foreach (var expression in InvokeReduceOptimizer.GetDublicate(tree))
+            foreach (var expression in ExpressionOptimizer.GetDublicate(tree))
             {
                 Console.WriteLine(expression);
             }
 
-            var optimizer = new InvokeReduceOptimizer(ef);
-
-            optimizer.Optimize();
+            var optimizerResult = (new ExpressionOptimizer(ef)).Optimize();
 
             Console.WriteLine();
             Console.WriteLine("DublicateInvoks");
-            foreach(var expression in optimizer.DublicateInvoks)
+            foreach(var expression in optimizerResult.DublicateInvoks)
             {
                 Console.WriteLine(expression);
             }

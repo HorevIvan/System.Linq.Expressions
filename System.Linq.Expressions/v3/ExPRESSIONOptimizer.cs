@@ -7,24 +7,22 @@ using System.Threading.Tasks;
 
 namespace v3
 {
-    public class InvokeReduceOptimizer
+    public class ExpressionOptimizer
     {
-        public Expression Source { private set; get; }
+        public ExpressionNode Tree { private set; get; }    
 
-        public ExpressionNode Tree { private set; get; }
-
-        public IEnumerable<Expression> DublicateInvoks { private set; get; }
-
-        public InvokeReduceOptimizer(Expression source)
+        public ExpressionOptimizer(Expression source)
         {
-            Source = source;
-
             Tree = (new ExpressionNode(source));
         }
 
-        public void Optimize()
+        public OptimizerResult Optimize()
         {
-            DublicateInvoks = GetDublicateInvoks(Tree);
+            var result = new OptimizerResult();
+
+            result.DublicateInvoks = GetDublicateInvoks(Tree);
+
+            return result;
         }
 
         public static IEnumerable<Expression> GetDublicateInvoks(ExpressionNode tree)
@@ -45,5 +43,10 @@ namespace v3
                     .Where(group => group.Skip(1).Any())            // selecting groups where amount of element more 1
                     .SelectMany(group => group);                    // getting free expressions from selected groups
         }
+    }
+
+    public class OptimizerResult
+    {
+        public IEnumerable<Expression> DublicateInvoks { set; get; }
     }
 }
