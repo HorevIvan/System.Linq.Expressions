@@ -43,6 +43,9 @@ namespace v3
                 Console.WriteLine(expression);
             }
 
+            Console.WriteLine();
+            Console.WriteLine("Rebuild");
+            tree.Rebuild();
 
             Console.ReadLine();
         }

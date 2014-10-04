@@ -9,32 +9,12 @@ namespace v3
 {
     public class ExpressionNode
     {
-        public Boolean IsChanged { private set; get; }
+        public Expression Root { private set; get; }
 
         public ExpressionNode(Expression root)
         {
-            IsChanged = false;
-
             Root = root;
-        }
-
-        #region Root
-
-        private Expression _Root;
-
-        public Expression Root
-        {
-            set
-            {
-                _Root = value;
-
-                IsChanged = true;
-            }
-
-            get { return _Root; }
-        }
-
-        #endregion
+        }            
 
         public IEnumerable<ExpressionNode> Nodes
         {
@@ -123,6 +103,23 @@ namespace v3
                 default:
                 {
                     throw (new NotSupportedException("Node type {0} is not supported".Set(root.NodeType)));
+                }
+            }
+        }
+
+        public Expression Rebuild()
+        {
+            switch (Root.NodeType)
+            {
+                case ExpressionType.Lambda:
+                {
+                    var lambdaExpression = Root.To<LambdaExpression>();
+
+                    return Expression.Lambda(lambdaExpression.Body, lambdaExpression.Parameters);
+                }
+                default:
+                {
+                    throw (new NotSupportedException("Node type {0} is not supported".Set(Root.NodeType)));
                 }
             }
         }
