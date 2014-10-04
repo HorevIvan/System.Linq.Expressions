@@ -23,14 +23,7 @@ namespace v3
 
         public IEnumerable<ExpressionNode> GetAllNodes()
         {
-            var nodes = Nodes;
-
-            foreach (var node in Nodes)
-            {
-                nodes = nodes.Concat(node.GetAllNodes());
-            }
-
-            return nodes;
+            return Nodes.Aggregate(Nodes, (current, node) => current.Concat(node.GetAllNodes()));
         }
 
         public IEnumerable<Expression> Expressions
@@ -38,7 +31,7 @@ namespace v3
             get { return GetExpressions(Root); }
         }
 
-        public static Expression[] GetExpressions(Expression root)
+        public static IEnumerable<Expression> GetExpressions(Expression root)
         {
             switch (root.NodeType)
             {
