@@ -35,6 +35,17 @@ namespace v3
         {
             switch (root.NodeType)
             {
+                case ExpressionType.Negate:
+                case ExpressionType.NegateChecked:
+                case ExpressionType.Not:
+                case ExpressionType.Convert:
+                case ExpressionType.ConvertChecked:
+                case ExpressionType.ArrayLength:
+                case ExpressionType.Quote:
+                case ExpressionType.TypeAs:
+                {
+                    return new[] {root.To<UnaryExpression>().Operand};
+                }
                 case ExpressionType.Add:
                 case ExpressionType.AddChecked:
                 case ExpressionType.Subtract:
@@ -79,10 +90,20 @@ namespace v3
                     {
                         return new Expression[] { };
                     }
+                case ExpressionType.TypeIs:
+                    {
+                        return new[] { root.To<TypeBinaryExpression>().Expression };
+                    }
+                case ExpressionType.Conditional:
+                    {
+                        var conditionalExpression = root.To<ConditionalExpression>();
+
+                        return new[] { conditionalExpression.Test, conditionalExpression.IfFalse, conditionalExpression.IfTrue };
+                    }
                 default:
                     {
                         throw (new NotSupportedException("Node type {0} is not supported".Set(root.NodeType)));
-                    }
+                    } 
             }
         }
 
