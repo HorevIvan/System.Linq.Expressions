@@ -115,7 +115,51 @@ namespace v3
                 {
                     var lambdaExpression = Root.To<LambdaExpression>();
 
-                    return Expression.Lambda(lambdaExpression.Body, lambdaExpression.Parameters);
+                    var bodyTree = new ExpressionNode(lambdaExpression.Body);
+
+                    return Expression.Lambda(bodyTree.Rebuild(), lambdaExpression.Parameters);
+                }
+                case ExpressionType.Multiply:
+                {
+                    var binaryExpression = Root.To<BinaryExpression>();
+
+                    var leftTree = new ExpressionNode(binaryExpression.Left);
+
+                    var rightTree = new ExpressionNode(binaryExpression.Right);
+
+                    return Expression.Multiply(leftTree.Rebuild(), rightTree.Rebuild());
+                }
+                case ExpressionType.Add:
+                {
+                    var binaryExpression = Root.To<BinaryExpression>();
+
+                    var leftTree = new ExpressionNode(binaryExpression.Left);
+
+                    var rightTree = new ExpressionNode(binaryExpression.Right);
+
+                    return Expression.Add(leftTree.Rebuild(), rightTree.Rebuild());
+                }
+                case ExpressionType.Subtract:
+                {
+                    var binaryExpression = Root.To<BinaryExpression>();
+
+                    var leftTree = new ExpressionNode(binaryExpression.Left);
+
+                    var rightTree = new ExpressionNode(binaryExpression.Right);
+
+                    return Expression.Subtract(leftTree.Rebuild(), rightTree.Rebuild());
+                }
+                case ExpressionType.Invoke:
+                {
+                    var invokeExpression = Root.To<InvocationExpression>();
+
+                    return Expression.Invoke(invokeExpression.Expression, invokeExpression.Arguments);
+                }
+                case ExpressionType.Constant:
+                {
+                    var constantExpression = Root.To<ConstantExpression>();
+
+                    return Expression.Constant(constantExpression.Value);
                 }
                 default:
                 {
