@@ -9,12 +9,32 @@ namespace v3
 {
     public class ExpressionNode
     {
-        public Expression Root { private set; get; }
+        public Boolean IsChanged { private set; get; }
 
         public ExpressionNode(Expression root)
         {
+            IsChanged = false;
+
             Root = root;
         }
+
+        #region Root
+
+        private Expression _Root;
+
+        public Expression Root
+        {
+            set
+            {
+                _Root = value;
+
+                IsChanged = true;
+            }
+
+            get { return _Root; }
+        }
+
+        #endregion
 
         public IEnumerable<ExpressionNode> Nodes
         {
@@ -44,7 +64,7 @@ namespace v3
                 case ExpressionType.Quote:
                 case ExpressionType.TypeAs:
                 {
-                    return new[] {root.To<UnaryExpression>().Operand};
+                    return new[] { root.To<UnaryExpression>().Operand };
                 }
                 case ExpressionType.Add:
                 case ExpressionType.AddChecked:
@@ -69,41 +89,41 @@ namespace v3
                 case ExpressionType.RightShift:
                 case ExpressionType.LeftShift:
                 case ExpressionType.ExclusiveOr:
-                    {
-                        var binaryExpression = root.To<BinaryExpression>();
+                {
+                    var binaryExpression = root.To<BinaryExpression>();
 
-                        return new[] { binaryExpression.Left, binaryExpression.Right };
-                    }
+                    return new[] { binaryExpression.Left, binaryExpression.Right };
+                }
                 case ExpressionType.Lambda:
-                    {
-                        return new[] { root.To<LambdaExpression>().Body };
-                    }
+                {
+                    return new[] { root.To<LambdaExpression>().Body };
+                }
                 case ExpressionType.Invoke:
-                    {
-                        return new[] { root.To<InvocationExpression>().Expression };
-                    }
+                {
+                    return new[] { root.To<InvocationExpression>().Expression };
+                }
                 case ExpressionType.MemberAccess:
-                    {
-                        return new[] { root.To<MemberExpression>().Expression };
-                    }
+                {
+                    return new[] { root.To<MemberExpression>().Expression };
+                }
                 case ExpressionType.Constant:
-                    {
-                        return new Expression[] { };
-                    }
+                {
+                    return new Expression[] { };
+                }
                 case ExpressionType.TypeIs:
-                    {
-                        return new[] { root.To<TypeBinaryExpression>().Expression };
-                    }
+                {
+                    return new[] { root.To<TypeBinaryExpression>().Expression };
+                }
                 case ExpressionType.Conditional:
-                    {
-                        var conditionalExpression = root.To<ConditionalExpression>();
+                {
+                    var conditionalExpression = root.To<ConditionalExpression>();
 
-                        return new[] { conditionalExpression.Test, conditionalExpression.IfFalse, conditionalExpression.IfTrue };
-                    }
+                    return new[] { conditionalExpression.Test, conditionalExpression.IfFalse, conditionalExpression.IfTrue };
+                }
                 default:
-                    {
-                        throw (new NotSupportedException("Node type {0} is not supported".Set(root.NodeType)));
-                    } 
+                {
+                    throw (new NotSupportedException("Node type {0} is not supported".Set(root.NodeType)));
+                }
             }
         }
 
