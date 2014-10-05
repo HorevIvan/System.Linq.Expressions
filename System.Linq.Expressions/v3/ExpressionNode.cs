@@ -107,7 +107,7 @@ namespace v3
             }
         }
 
-        public Expression Rebuild()
+        public Expression Rebuild(/*TODO RebuildRule*/)
         {
             switch (Root.NodeType)
             {
