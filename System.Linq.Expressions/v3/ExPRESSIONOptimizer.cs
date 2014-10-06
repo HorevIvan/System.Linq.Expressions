@@ -20,16 +20,30 @@ namespace v3
         {
             var result = new OptimizerResult();
 
-            result.Duplications = GetDublicateInvoks(Tree);
+            result.Duplications = GetDuplications(Tree);
 
-            //result.CalculatedDuplications //TODO
+            result.CalculatedDuplications = GetCalculatedDuplications(result.Duplications);
 
             //result.ChangedExpression //TODO
 
             return result;
         }
 
-        private IEnumerable<InvocationExpression> GetDublicateInvoks(ExpressionNode tree)
+        private IEnumerable<CalculatedInvoke> GetCalculatedDuplications(IEnumerable<InvocationExpression> invoks)
+        {
+            foreach (var invoke in invoks)
+            {
+                var lambda = Expression.Lambda(invoke, Expression.Parameter(invoke.Arguments[0].Type, invoke.Arguments[0].ToString().Trim('{', '}'))); //TODO я рыдаю над собой
+
+                var d = lambda.Compile();
+
+                d.DynamicInvoke();
+            }
+
+            return null;
+        }
+
+        public IEnumerable<InvocationExpression> GetDuplications(ExpressionNode tree)
         {
             return
                 GetDublicate(tree)
@@ -54,8 +68,22 @@ namespace v3
     {
         public IEnumerable<InvocationExpression> Duplications { set; get; }
 
-        public Dictionary<InvocationExpression, ConstantExpression> CalculatedDuplications { set; get; }
+        public IEnumerable<CalculatedInvoke> CalculatedDuplications { set; get; }
 
         public Expression ChangedExpression { set; get; }
+    }
+
+    public class CalculatedInvoke
+    {
+        public InvocationExpression InvocationExpression { private set; get; }
+
+        public ConstantExpression ConstantExpression { private set; get; }
+
+        public CalculatedInvoke(InvocationExpression invocationExpression, ConstantExpression constantExpression)
+        {
+            InvocationExpression = invocationExpression;
+
+            ConstantExpression = constantExpression;
+        }
     }
 }
