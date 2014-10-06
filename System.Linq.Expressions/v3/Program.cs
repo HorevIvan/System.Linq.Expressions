@@ -38,7 +38,7 @@ namespace v3
 
             Console.WriteLine();
             Console.WriteLine("DublicateInvoks");
-            foreach(var expression in optimizerResult.DublicateInvoks)
+            foreach(var expression in optimizerResult.Duplications)
             {
                 Console.WriteLine(expression);
             }

@@ -20,18 +20,23 @@ namespace v3
         {
             var result = new OptimizerResult();
 
-            result.DublicateInvoks = GetDublicateInvoks(Tree);
+            result.Duplications = GetDublicateInvoks(Tree);
+
+            //result.CalculatedDuplications //TODO
+
+            //result.ChangedExpression //TODO
 
             return result;
         }
 
-        public static IEnumerable<Expression> GetDublicateInvoks(ExpressionNode tree)
+        private IEnumerable<InvocationExpression> GetDublicateInvoks(ExpressionNode tree)
         {
             return
                 GetDublicate(tree)
                     .GroupBy(expression => expression.ToString())                           // grouping expressions by it string implementation 
                     .Select(group => group.First())                                         // getting first element from each group
-                    .Where(expression => expression.NodeType == ExpressionType.Invoke);     // selecting invocable expressions
+                    .Where(expression => expression.NodeType == ExpressionType.Invoke)      // selecting invocable expressions
+                    .Select(expression => expression.To<InvocationExpression>());           // cast expressions to invoks
         }
 
         public static IEnumerable<Expression> GetDublicate(ExpressionNode rootNode)
@@ -47,6 +52,10 @@ namespace v3
 
     public class OptimizerResult
     {
-        public IEnumerable<Expression> DublicateInvoks { set; get; }
+        public IEnumerable<InvocationExpression> Duplications { set; get; }
+
+        public Dictionary<InvocationExpression, ConstantExpression> CalculatedDuplications { set; get; }
+
+        public Expression ChangedExpression { set; get; }
     }
 }
